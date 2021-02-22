@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:wish/services/weather.dart';
+import '../services/weather.dart';
 
 class LocationScreen extends StatefulWidget {
   LocationScreen({this.locationWeather});
@@ -15,21 +15,22 @@ class _LocationScreenState extends State<LocationScreen> {
   String weatherIcon;
   String weatherMassage;
   String cityName;
+  int windSpeedDisplay;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     changeUI(widget.locationWeather);
   }
 
-  void changeUI(weatherData) {
+  void changeUI(dynamic weatherData) {
     setState(() {
       if (weatherData == null) {
         tempeture = 0;
         weatherIcon = 'خطا';
         weatherMassage = 'نتونستیم مکان شمارو بیابیم شرمنده جنابعالی';
         cityName = 'ناکجاآباد';
+        windSpeedDisplay = 0;
         return;
       }
       double temp = weatherData['main']['temp'];
@@ -38,77 +39,147 @@ class _LocationScreenState extends State<LocationScreen> {
       weatherIcon = weather.getWeatherIcon(condition);
       weatherMassage = weather.getMessage(tempeture);
       cityName = weatherData['name'];
+      var windSpeed = weatherData['wind']['speed'];
+      windSpeedDisplay = windSpeed.toInt();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Color(0xFFFDB7C2),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/bg1.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 20.0),
-                    child: Text(
-                      '$weatherMassage',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 35,
-                        fontFamily: 'iransans',
-                      ),
+      backgroundColor: Color(0xFFFDB7C2),
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 20.0, top: 10.0),
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: Text(
+                    '$weatherMassage',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontFamily: 'iransans',
                     ),
                   ),
-                  Column(
+                ),
+                Column(
+                  children: [
+                    FlatButton(
+                      onPressed: () async {
+                        var weatherData =
+                            await weather.gettingLocationWeather();
+                        changeUI(weatherData);
+                      },
+                      child: Icon(
+                        Icons.location_on,
+                        size: 35,
+                        color: Colors.white,
+                      ),
+                    ),
+                    FlatButton(
+                      onPressed: () {},
+                      child: Icon(
+                        Icons.location_city_sharp,
+                        size: 35,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            // ********************************************
+            // this part of code didnt work dude ... check it please
+            // *************************************************
+            // Text(
+            //   '$weatherIcon',
+            //   style: TextStyle(fontSize: 170),
+            // ),
+            // Image(image: Image.asset('$weatherIcon')))
+            // Center(child: Text('sdsd')),
+
+            // Container(
+            //   height: 120.0,
+            //   width: 120.0,
+            //   decoration: BoxDecoration(
+            //     image: DecorationImage(
+            //       image: AssetImage('cloudy.jpg'),
+            //       fit: BoxFit.fill,
+            //     ),
+            //     shape: BoxShape.circle,
+            //   ),
+            // ),
+            // Container(child: Image(image: AssetImage("bg1.jpg"))),
+            // Container(
+            //     width: 100.00,
+            //     height: 100.00,
+            //     decoration: new BoxDecoration(
+            //       image: new DecorationImage(
+            //         image: ExactAssetImage('bg1.jpg'),
+            //         fit: BoxFit.fitHeight,
+            //       ),
+            //     )),
+            // *************************************
+            // end
+            // ******************************************
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: Column(
                     children: [
-                      FlatButton(
-                        onPressed: () {},
-                        child: Icon(
-                          Icons.near_me,
-                          size: 35,
+                      Text(
+                        '$cityName',
+                        style: TextStyle(
                           color: Colors.white,
+                          fontSize: 45,
                         ),
                       ),
-                      FlatButton(
-                        onPressed: () {},
-                        child: Icon(
-                          Icons.near_me,
-                          size: 35,
+                      Text(
+                        '$tempeture°',
+                        style: TextStyle(
                           color: Colors.white,
+                          fontSize: 75,
                         ),
                       ),
-                    ],
-                  )
-                ],
-              ),
-              Text('$weatherIcon'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      Text('$cityName'),
-                      Text('$tempeture'),
                     ],
                   ),
-                  Container(
-                    child: bluryContainer(Text('windyyy')),
-                  )
-                ],
-              )
-            ],
-          ),
+                ),
+                SizedBox(
+                  width: 110,
+                ),
+                Expanded(
+                  child: bluryContainer(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '$windSpeedDisplay',
+                          style: TextStyle(color: Colors.white, fontSize: 25),
+                        ),
+                        Text(
+                          'm/s',
+                          style: TextStyle(color: Colors.white, fontSize: 17),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'سرعت باد',
+                          style: TextStyle(color: Colors.white, fontSize: 17),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );
@@ -119,7 +190,7 @@ class _LocationScreenState extends State<LocationScreen> {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
         child: Container(
-          width: 90,
+          width: 110,
           height: 70,
           color: Colors.black.withOpacity(0.1),
           child: Center(child: child),

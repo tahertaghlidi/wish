@@ -11,13 +11,14 @@ class WeatherModel {
   //   return await networkConnection.gettingData();
   // }
 
-  Future gettingLocationWeather() async {
+  Future<dynamic> gettingLocationWeather() async {
     Location location = Location();
     await location.gettingCurrentloc();
     String url =
         '$weatherSiteURL?lat=${location.lat}&lon=${location.lon}&appid=$apiKey&units=metric';
     NetworkConnection networkConnection = NetworkConnection(url: url);
-    return await networkConnection.gettingData();
+    var weatherData = await networkConnection.gettingData();
+    return weatherData;
   }
 
   String getWeatherIcon(int condition) {
@@ -31,10 +32,10 @@ class WeatherModel {
       return '☃️';
     } else if (condition < 800) {
       return '🌫';
-    } else if (condition == 800) {
+    } else if (condition == 801) {
       return '☀️';
     } else if (condition <= 804) {
-      return '☁️';
+      return 'cloudy.jpg';
     } else {
       return '🤷‍';
     }

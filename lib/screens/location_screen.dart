@@ -93,40 +93,18 @@ class _LocationScreenState extends State<LocationScreen> {
                 )
               ],
             ),
-            // ********************************************
-            // this part of code didnt work dude ... check it please
-            // *************************************************
-            // Text(
-            //   '$weatherIcon',
-            //   style: TextStyle(fontSize: 170),
-            // ),
-            // Image(image: Image.asset('$weatherIcon')))
-            // Center(child: Text('sdsd')),
-
-            // Container(
-            //   height: 120.0,
-            //   width: 120.0,
-            //   decoration: BoxDecoration(
-            //     image: DecorationImage(
-            //       image: AssetImage('cloudy.jpg'),
-            //       fit: BoxFit.fill,
-            //     ),
-            //     shape: BoxShape.circle,
-            //   ),
-            // ),
-            // Container(child: Image(image: AssetImage("bg1.jpg"))),
-            // Container(
-            //     width: 100.00,
-            //     height: 100.00,
-            //     decoration: new BoxDecoration(
-            //       image: new DecorationImage(
-            //         image: ExactAssetImage('bg1.jpg'),
-            //         fit: BoxFit.fitHeight,
-            //       ),
-            //     )),
-            // *************************************
-            // end
-            // ******************************************
+            Container(
+              height: 220.0,
+              width: 220.0,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/$weatherIcon"),
+                  fit: BoxFit.fill,
+                ),
+                shape: BoxShape.circle,
+                // color: Colors.white,
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [

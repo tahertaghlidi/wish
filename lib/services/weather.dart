@@ -33,9 +33,9 @@ class WeatherModel {
     } else if (condition < 800) {
       return '🌫';
     } else if (condition == 801) {
-      return '☀️';
+      return 'sunny.png';
     } else if (condition <= 804) {
-      return 'cloudy.jpg';
+      return 'cloudy.png';
     } else {
       return '🤷‍';
     }

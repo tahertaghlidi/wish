@@ -5,11 +5,12 @@ const apiKey = 'e961a7e9bb758d8ed17701e9d68c8aab';
 const weatherSiteURL = 'http://api.openweathermap.org/data/2.5/weather';
 
 class WeatherModel {
-  // Future gettingCityWeather(String cityName) async {
-  //   var url = '$weatherSiteURL?q=$cityName&appid=$apiKey&units=metric';
-  //   NetworkConnection networkConnection = NetworkConnection(url: url);
-  //   return await networkConnection.gettingData();
-  // }
+  Future<dynamic> gettingCityWeather(String cityName) async {
+    var url = '$weatherSiteURL?q=$cityName&appid=$apiKey&units=metric';
+    NetworkConnection networkConnection = NetworkConnection(url: url);
+    var weatherData = await networkConnection.gettingData();
+    return weatherData;
+  }
 
   Future<dynamic> gettingLocationWeather() async {
     Location location = Location();
@@ -22,6 +23,26 @@ class WeatherModel {
   }
 
   String getWeatherIcon(int condition) {
+    if (condition < 300) {
+      return '🌩';
+    } else if (condition < 400) {
+      return '🌧';
+    } else if (condition < 600) {
+      return '☔️';
+    } else if (condition < 700) {
+      return '☃️';
+    } else if (condition < 800) {
+      return '🌫';
+    } else if (condition == 800) {
+      return 'hot.jpg';
+    } else if (condition <= 804) {
+      return 'cold.jpg';
+    } else {
+      return '🤷‍';
+    }
+  }
+
+  String getWeatherBackground(int condition) {
     if (condition < 300) {
       return '🌩';
     } else if (condition < 400) {

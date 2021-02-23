@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../services/weather.dart';
+import './chose_city.dart';
+import '../utilities/const.dart';
 
 class LocationScreen extends StatefulWidget {
   LocationScreen({this.locationWeather});
@@ -82,7 +84,17 @@ class _LocationScreenState extends State<LocationScreen> {
                       ),
                     ),
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        var typedName = await Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return CityScreen();
+                        }));
+                        if (typedName != null) {
+                          var weatherData =
+                              await weather.gettingCityWeather(typedName);
+                          changeUI(weatherData);
+                        }
+                      },
                       child: Icon(
                         Icons.location_city_sharp,
                         size: 35,

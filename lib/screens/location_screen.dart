@@ -49,127 +49,137 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFDB7C2),
+      // backgroundColor: Color(0xFFFDB7C2),
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 20.0, top: 10.0),
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: Text(
-                    '$weatherMassage',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontFamily: 'iransans',
-                    ),
-                  ),
-                ),
-                Column(
-                  children: [
-                    FlatButton(
-                      onPressed: () async {
-                        var weatherData =
-                            await weather.gettingLocationWeather();
-                        changeUI(weatherData);
-                      },
-                      child: Icon(
-                        Icons.location_on,
-                        size: 35,
-                        color: Colors.white,
-                      ),
-                    ),
-                    FlatButton(
-                      onPressed: () async {
-                        var typedName = await Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return CityScreen();
-                        }));
-                        if (typedName != null) {
-                          var weatherData =
-                              await weather.gettingCityWeather(typedName);
-                          changeUI(weatherData);
-                        }
-                      },
-                      child: Icon(
-                        Icons.location_city_sharp,
-                        size: 35,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                )
-              ],
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/$weatherIcon"),
+              fit: BoxFit.fill,
             ),
-            Container(
-              height: 220.0,
-              width: 220.0,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/$weatherIcon"),
-                  fit: BoxFit.fill,
-                ),
-                shape: BoxShape.circle,
-                // color: Colors.white,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 20.0, top: 12.0),
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: bluryContainer(
                       Text(
-                        '$cityName',
+                        '$weatherMassage',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 45,
+                          fontSize: 30,
+                          fontFamily: 'iransans',
                         ),
                       ),
-                      Text(
-                        '$tempeture°',
-                        style: TextStyle(
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      FlatButton(
+                        onPressed: () async {
+                          var weatherData =
+                              await weather.gettingLocationWeather();
+                          changeUI(weatherData);
+                        },
+                        child: Icon(
+                          Icons.location_on,
+                          size: 35,
                           color: Colors.white,
-                          fontSize: 75,
+                        ),
+                      ),
+                      FlatButton(
+                        onPressed: () async {
+                          var typedName = await Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return CityScreen();
+                          }));
+                          if (typedName != null) {
+                            var weatherData =
+                                await weather.gettingCityWeather(typedName);
+                            changeUI(weatherData);
+                          }
+                        },
+                        child: Icon(
+                          Icons.location_city_sharp,
+                          size: 35,
+                          color: Colors.white,
                         ),
                       ),
                     ],
-                  ),
-                ),
-                SizedBox(
-                  width: 110,
-                ),
-                Expanded(
-                  child: bluryContainer(
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  )
+                ],
+              ),
+              // Container(
+              //   height: 220.0,
+              //   width: 220.0,
+              //   decoration: BoxDecoration(
+              //     image: DecorationImage(
+              //       image: AssetImage("assets/images/$weatherIcon"),
+              //       fit: BoxFit.fill,
+              //     ),
+              //     shape: BoxShape.circle,
+              //     // color: Colors.white,
+              //   ),
+              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    child: Column(
                       children: [
                         Text(
-                          '$windSpeedDisplay',
-                          style: TextStyle(color: Colors.white, fontSize: 25),
+                          '$cityName',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 45,
+                          ),
                         ),
                         Text(
-                          'm/s',
-                          style: TextStyle(color: Colors.white, fontSize: 17),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'سرعت باد',
-                          style: TextStyle(color: Colors.white, fontSize: 17),
+                          '$tempeture°',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 75,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                )
-              ],
-            )
-          ],
+                  SizedBox(
+                    width: 110,
+                  ),
+                  Expanded(
+                    child: bluryContainer(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '$windSpeedDisplay',
+                            style: TextStyle(color: Colors.white, fontSize: 25),
+                          ),
+                          Text(
+                            'm/s',
+                            style: TextStyle(color: Colors.white, fontSize: 17),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'سرعت باد',
+                            style: TextStyle(color: Colors.white, fontSize: 17),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -180,8 +190,8 @@ class _LocationScreenState extends State<LocationScreen> {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 7.0, sigmaY: 7.0),
         child: Container(
-          width: 110,
-          height: 70,
+          width: MediaQuery.of(context).size.width * 0.1,
+          height: MediaQuery.of(context).size.height * 0.12,
           color: Colors.black.withOpacity(0.1),
           child: Center(child: child),
         ),

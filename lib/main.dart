@@ -10,7 +10,8 @@ class Wish extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
+      theme: ThemeData.light().copyWith(
+          textTheme: ThemeData.light().textTheme.apply(fontFamily: 'iransans')),
       home: LoadingScreen(),
     );
   }

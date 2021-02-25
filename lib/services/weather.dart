@@ -1,8 +1,6 @@
 import './location.dart';
 import './networking.dart';
-
-const apiKey = 'e961a7e9bb758d8ed17701e9d68c8aab';
-const weatherSiteURL = 'http://api.openweathermap.org/data/2.5/weather';
+import '../services/api.dart';
 
 class WeatherModel {
   Future<dynamic> gettingCityWeather(String cityName) async {
@@ -24,47 +22,27 @@ class WeatherModel {
 
   String getWeatherIcon(int condition) {
     if (condition < 300) {
-      return '🌩';
+      return 'cloudlight.jpg';
     } else if (condition < 400) {
-      return '🌧';
+      return 'cloudwithrain.jpg';
     } else if (condition < 600) {
-      return '☔️';
+      return 'umbrella.jpg';
     } else if (condition < 700) {
-      return '☃️';
+      return 'snowman.jpg';
     } else if (condition < 800) {
-      return '🌫';
+      return 'fog.jpg';
     } else if (condition == 800) {
       return 'hot.jpg';
     } else if (condition <= 804) {
       return 'cold.jpg';
     } else {
-      return '🤷‍';
-    }
-  }
-
-  String getWeatherBackground(int condition) {
-    if (condition < 300) {
-      return '🌩';
-    } else if (condition < 400) {
-      return '🌧';
-    } else if (condition < 600) {
-      return '☔️';
-    } else if (condition < 700) {
-      return '☃️';
-    } else if (condition < 800) {
-      return '🌫';
-    } else if (condition == 801) {
-      return 'sunny.png';
-    } else if (condition <= 804) {
-      return 'cloudy.png';
-    } else {
-      return '🤷‍';
+      return 'panic.jpg';
     }
   }
 
   String getMessage(int temp) {
     if (temp > 25) {
-      return 'هوا گرم و خوبخ بستنی یادت نره';
+      return 'هوا گرم و خوبه بستنی یادت نره';
     } else if (temp > 20) {
       return 'امروز وقت لباس نازک و تابستونیه';
     } else if (temp < 10) {

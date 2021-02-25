@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import '../utilities/const.dart';
 
 class CityScreen extends StatefulWidget {
@@ -36,6 +37,7 @@ class _CityScreenState extends State<CityScreen> {
                 ),
               ),
               Container(
+                margin: EdgeInsets.only(top: 20),
                 child: TextField(
                   style: TextStyle(color: Colors.black),
                   textAlign: TextAlign.right,
@@ -45,13 +47,22 @@ class _CityScreenState extends State<CityScreen> {
                   },
                 ),
               ),
-              OutlineButton(
-                onPressed: () {
-                  Navigator.pop(context, cityName);
-                },
-                child: Text(
-                  'بزن ببینیم اینجا هوا چطوره؟',
-                  style: TextStyle(color: Colors.white),
+              Container(
+                margin: EdgeInsets.only(bottom: 50),
+                child: OutlineButton(
+                  onPressed: () {
+                    Navigator.pop(context, cityName);
+                  },
+                  child: Text(
+                    'بزن ببینیم اینجا هوا چطوره؟',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                    ),
+                  ),
+                  borderSide: BorderSide(color: Colors.grey),
+                  hoverColor: Colors.white,
+                  mouseCursor: MouseCursor.defer,
                 ),
               ),
             ],
